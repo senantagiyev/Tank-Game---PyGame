@@ -2,80 +2,64 @@ import pygame
 import random
 import sys
 
-# Pygame'i başlat
 pygame.init()
 
-# Ekran boyutları
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Tank Oyunu")
 
-# Renkler
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-# FPS Kontrolü
 clock = pygame.time.Clock()
 
-# Arka Plan
-background = pygame.image.load('background.jpg')  # Arka plan resmi
+background = pygame.image.load('background.jpg')  
 background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# Patlama efekti
-explosion_image = pygame.image.load('explosion.png')  # Patlama resmi
+explosion_image = pygame.image.load('explosion.png')  
 explosion_image = pygame.transform.scale(explosion_image, (100, 100))
 
-# Tank (silah) ve düşman tankı görselleri
-tank_image = pygame.image.load('tank.png')  # Oyuncunun tankı
+tank_image = pygame.image.load('tank.png')  
 tank_image = pygame.transform.scale(tank_image, (60, 60))
 
-enemy_tank_image = pygame.image.load('enemy_tank.png')  # Düşman tankı
+enemy_tank_image = pygame.image.load('enemy_tank.png') 
 enemy_tank_image = pygame.transform.scale(enemy_tank_image, (60, 60))
 
-# Silah
 gun_width = 60
 gun_height = 60
 gun_x = SCREEN_WIDTH // 2 - gun_width // 2
 gun_y = SCREEN_HEIGHT - gun_height - 10
 gun_speed = 5
 
-# Mermi
 bullet_width = 10
 bullet_height = 20
-bullet_speed = 2  # Mermilerin hızını daha da yavaşlattık
+bullet_speed = 2  
 bullets = []
 
-# Hedefler
 target_width = 60
 target_height = 60
 targets = []
 
-# Hedef mermileri
 target_bullets = []
-target_bullet_speed = 3  # Hedef mermilerinin hızını yavaşlattık
+target_bullet_speed = 3  
 
-# Can
 lives = 3
 font = pygame.font.SysFont('Arial', 30)
 
-# Puan
 score = 0
 
-# Hedefleri yarat
 def create_target():
     x = random.randint(0, SCREEN_WIDTH - target_width)
     y = random.randint(50, 150)
     return pygame.Rect(x, y, target_width, target_height)
 
-# Hedef mermisi oluştur
 def create_target_bullet(target_x, target_y):
     return pygame.Rect(target_x + target_width // 2 - bullet_width // 2, target_y + target_height, bullet_width, bullet_height)
 
-# Silahı çiz
 def draw_gun():
     screen.blit(tank_image, (gun_x, gun_y))
 
